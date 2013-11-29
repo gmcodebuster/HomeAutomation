@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HomeAutomation</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name= "base_url">http://192.168.2.150</string>
+    <string name= "exte_url">/arduino/device/</string>
+    
+    <string name= "statusnow_url">/arduino/status/now</string>
+      
+    <string name= "fan_url">/arduino/fan/</string>
+    
+    <string name= "curtain_close_url">/arduino/curtain/close</string>
+    <string name= "curtain_open_url">/arduino/curtain/open</string>
+    
+    <string name= "reset_all">/arduino/reset/all</string>
+    
+    <string name= "turn_all">/arduino/turnon/all</string>
+       
+</resources>
