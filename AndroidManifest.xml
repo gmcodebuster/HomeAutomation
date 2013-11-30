@@ -29,6 +29,11 @@
             </intent-filter>
         </activity>
         
+        <activity
+            android:name="com.example.homeautomation.SeekbarActivity"
+            android:label="@string/app_name" >           
+           
+        </activity>
         
     </application>
 

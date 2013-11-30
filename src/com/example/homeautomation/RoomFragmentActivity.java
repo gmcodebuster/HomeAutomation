@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -43,14 +44,33 @@ public class RoomFragmentActivity extends FragmentActivity {
 		btnReset = (Button) findViewById(R.id.btn_resetall);
 	    btnTurnonall = (Button) findViewById(R.id.btn_turnon_all);
 		
-		cb_l1.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("1"));
-		cb_l2.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("2"));
-		cb_l3.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("3"));
-		cb_l4.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("4"));
-		cb_l5.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("5"));
-		cb_l6.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("6"));
-		cb_l7.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("7"));
-		cb_l8.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("8")); 
+//		cb_l1.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("1"));
+//		cb_l2.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("2"));
+//		cb_l3.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("3"));
+//		cb_l4.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("4"));
+//		cb_l5.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("5"));
+//		cb_l6.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("6"));
+//		cb_l7.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("7"));
+//		cb_l8.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("8")); 
+	    
+	    cb_l1.setOnClickListener(new MyHomeOnClickListener("1",cb_l1));
+		cb_l2.setOnClickListener(new MyHomeOnClickListener("2",cb_l2));
+		cb_l3.setOnClickListener(new MyHomeOnClickListener("3",cb_l3));
+		cb_l4.setOnClickListener(new MyHomeOnClickListener("4",cb_l4));
+		cb_l5.setOnClickListener(new MyHomeOnClickListener("5",cb_l5));
+		cb_l6.setOnClickListener(new MyHomeOnClickListener("6",cb_l6));
+		cb_l7.setOnClickListener(new MyHomeOnClickListener("7",cb_l7));
+		cb_l8.setOnClickListener(new MyHomeOnClickListener("8",cb_l8));
+		cb_fan.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+			Intent i1 = new Intent(ctx,SeekbarActivity.class);
+			startActivity(i1);
+			}
+		});
+		
 		
 		btnReset.setOnClickListener(new OnClickListener() {
 			
@@ -109,27 +129,27 @@ public class RoomFragmentActivity extends FragmentActivity {
 //		});
 		
 		
-//		cb_l1.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//				String url;
-//				if(cb_l1.isChecked()){
-//					System.out.println("Checkbox 1 >> "+cb_l1.isChecked());
-//					Toast.makeText(ctx, "text"+cb_l1.isChecked(), Toast.LENGTH_LONG).show();
-//					url = ctx.getResources().getString(R.string.base_url)+ctx.getResources().getString(R.string.exte_url)+"1/1"; 
-//					System.out.println("URL of Device 1 >> "+url);
-//					new OnOffAsync().execute(url);
-//					
-//				}else{
-//					
-//					url = ctx.getResources().getString(R.string.base_url)+ctx.getResources().getString(R.string.exte_url)+"1/0";
-//					System.out.println("URL of Device 1 >> "+url);
-//					new OnOffAsync().execute(url);
-//				}
-//			}
-//		});
+		cb_l1.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				String url;
+				if(cb_l1.isChecked()){
+					System.out.println("Checkbox 1 >> "+cb_l1.isChecked());
+					Toast.makeText(ctx, "text"+cb_l1.isChecked(), Toast.LENGTH_LONG).show();
+					url = ctx.getResources().getString(R.string.base_url)+ctx.getResources().getString(R.string.exte_url)+"1/1"; 
+					System.out.println("URL of Device 1 >> "+url);
+					new OnOffAsync().execute(url);
+					
+				}else{
+					
+					url = ctx.getResources().getString(R.string.base_url)+ctx.getResources().getString(R.string.exte_url)+"1/0";
+					System.out.println("URL of Device 1 >> "+url);
+					new OnOffAsync().execute(url);
+				}
+			}
+		});
 		
 	
 	}//End of onCreate()
@@ -367,37 +387,37 @@ public class RoomFragmentActivity extends FragmentActivity {
 	}//End of async class 
 	
 	
-//	private class MyHomeOnClickListener implements OnClickListener{
-//
-//		 String dev_id;
-//		 View v;
-//	     public MyHomeOnClickListener(String dev_id,View v) {
-//	          this.dev_id = dev_id;
-//	          this.v = v;
-//	     }
-//
-//		
-//		@Override
-//		public void onClick(View v) {
-//			// TODO Auto-generated method stub
-//			
-//			String url;
-//			if(isChecked){
-//				System.out.println("Checkbox 1 >> "+isChecked);
-////				Toast.makeText(ctx, "text"+isChecked, Toast.LENGTH_LONG).show();
-//				url = ctx.getResources().getString(R.string.base_url)+ctx.getResources().getString(R.string.exte_url)+dev_id+"/1"; 
-//				System.out.println("URL of Device "+dev_id+" >> "+url);
-//				new OnOffAsync().execute(url);
-//				
-//			}else{
-//				
-//				url = ctx.getResources().getString(R.string.base_url)+ctx.getResources().getString(R.string.exte_url)+dev_id+"/0";
-//				System.out.println("URL of Device "+dev_id+" >> "+url);
-//				new OnOffAsync().execute(url);
-//			}
-//		}
-//		
-//	}
+	private class MyHomeOnClickListener implements OnClickListener{
+
+		 String dev_id;
+		 CompoundButton vi;
+	     public MyHomeOnClickListener(String dev_id,CompoundButton v) {
+	          this.dev_id = dev_id;
+	          this.vi = v;
+	     }
+
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			
+			String url;
+			if(vi.isChecked()){
+				System.out.println("Checkbox 1 >> "+vi.isChecked());
+//				Toast.makeText(ctx, "text"+isChecked, Toast.LENGTH_LONG).show();
+				url = ctx.getResources().getString(R.string.base_url)+ctx.getResources().getString(R.string.exte_url)+dev_id+"/1"; 
+				System.out.println("URL of Device "+dev_id+" >> "+url);
+				new OnOffAsync().execute(url);
+				
+			}else{
+				
+				url = ctx.getResources().getString(R.string.base_url)+ctx.getResources().getString(R.string.exte_url)+dev_id+"/0";
+				System.out.println("URL of Device "+dev_id+" >> "+url);
+				new OnOffAsync().execute(url);
+			}
+		}
+		
+	}
 	
 	public class MyHomeOnCheckedChangeListener implements OnCheckedChangeListener
 	   {
