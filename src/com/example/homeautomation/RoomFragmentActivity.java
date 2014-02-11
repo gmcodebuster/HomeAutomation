@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
@@ -23,6 +26,8 @@ public class RoomFragmentActivity extends FragmentActivity {
 	CompoundButton cb_l1,cb_l2,cb_l3,cb_l4,cb_l5,cb_l6,cb_l7,cb_l8,cb_fan;
 	Button btnReset,btnTurnonall;
 	boolean isReset = true;
+	RadioGroup radioGroup;
+	RadioButton r_slow,r_medium,r_fast;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -40,10 +45,28 @@ public class RoomFragmentActivity extends FragmentActivity {
 		cb_l7 = (CompoundButton) findViewById(R.id.ch_light_07);
 		cb_l8 = (CompoundButton) findViewById(R.id.ch_light_08);
 		cb_fan = (CompoundButton) findViewById(R.id.ch_fan);
+		radioGroup = (RadioGroup) findViewById(R.id.radiogroup);
+		
+		r_slow = (RadioButton) findViewById(R.id.radiobutton_slow);
+		r_medium = (RadioButton) findViewById(R.id.radiobutton_medium);
+		r_fast = (RadioButton) findViewById(R.id.radiobutton_fast);
 		
 		btnReset = (Button) findViewById(R.id.btn_resetall);
 	    btnTurnonall = (Button) findViewById(R.id.btn_turnon_all);
 		
+	    /*int checkedRadioButton = radioGroup.getCheckedRadioButtonId();
+		 
+		String radioButtonSelected = "";
+		 
+		switch (checkedRadioButton) {
+		  case R.id.radiobutton1 : radioButtonSelected = "radiobutton1";
+		                   	              break;
+		  case R.id.radiobutton2 : radioButtonSelected = "radiobutton2";
+				                      break;
+		  case R.id.radiobutton3 : radioButtonSelected = "radiobutton3";
+				                      break;
+		}*/
+	    
 //		cb_l1.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("1"));
 //		cb_l2.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("2"));
 //		cb_l3.setOnCheckedChangeListener(new MyHomeOnCheckedChangeListener("3"));
@@ -61,15 +84,93 @@ public class RoomFragmentActivity extends FragmentActivity {
 		cb_l6.setOnClickListener(new MyHomeOnClickListener("6",cb_l6));
 		cb_l7.setOnClickListener(new MyHomeOnClickListener("7",cb_l7));
 		cb_l8.setOnClickListener(new MyHomeOnClickListener("8",cb_l8));
-		cb_fan.setOnClickListener(new OnClickListener() {
+		cb_fan.setOnClickListener(new MyHomeOnClickListener("fan", cb_fan));
+		
+		
+		r_slow.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-			Intent i1 = new Intent(ctx,SeekbarActivity.class);
-			startActivity(i1);
+				System.out.println("Checkbox fan slow>> "+v.isSelected());
+//				Toast.makeText(ctx, "text"+isChecked, Toast.LENGTH_LONG).show();
+				String url = ctx.getResources().getString(R.string.base_url)+ctx.getResources().getString(R.string.exte_url_fan)+"/1"; 
+				System.out.println("URL of Fan slow  >> "+url);					
+				
+				
+				new OnOffAsync().execute(url);
 			}
 		});
+		
+		r_medium.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				System.out.println("Checkbox fan medium>> "+v.isSelected());
+//				Toast.makeText(ctx, "text"+isChecked, Toast.LENGTH_LONG).show();
+				String url = ctx.getResources().getString(R.string.base_url)+ctx.getResources().getString(R.string.exte_url_fan)+"/2"; 
+				System.out.println("URL of Fan medium  >> "+url);					
+				
+				
+				new OnOffAsync().execute(url);
+			}
+		});
+		
+		r_fast.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				System.out.println("Checkbox fan fast >> "+v.isSelected());
+//				Toast.makeText(ctx, "text"+isChecked, Toast.LENGTH_LONG).show();
+				String url = ctx.getResources().getString(R.string.base_url)+ctx.getResources().getString(R.string.exte_url_fan)+"/3"; 
+				System.out.println("URL of Fan fast  >> "+url);					
+				
+				
+				new OnOffAsync().execute(url);
+			}
+		});
+		
+//		cb_fan.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				//enable radiobutton
+//				if(cb_fan.isChecked()){
+//					System.out.println("Checkbox fan >> "+cb_fan.isChecked());
+//					Toast.makeText(ctx, "text"+cb_fan.isChecked(), Toast.LENGTH_LONG).show();
+//					
+//					
+//					r_slow.setEnabled(true);
+//					r_medium.setEnabled(true);
+//					r_fast.setEnabled(true);
+//					
+//					
+//					String url_fan = ctx.getResources().getString(R.string.base_url)+ctx.getResources().getString(R.string.exte_url_fan)+"/1"; 
+//					System.out.println("URL of Device fan  >> "+url_fan);				
+//					
+//					new OnOffAsync().execute(url_fan);
+////					192.168.2.150/arduino/fan/2
+//					
+//				}else{
+//					
+//					String url_fan = ctx.getResources().getString(R.string.base_url)+ctx.getResources().getString(R.string.exte_url_fan)+"/1"; 
+//					System.out.println("URL of Device fan  >> "+url_fan);				
+//					
+//					new OnOffAsync().execute(url_fan);
+//					
+//					r_slow.setEnabled(false);
+//					r_medium.setEnabled(false);
+//					r_fast.setEnabled(false);
+//				}
+//				
+//				
+//			}
+//		});
+		
+		
 		
 		
 		btnReset.setOnClickListener(new OnClickListener() {
@@ -129,7 +230,7 @@ public class RoomFragmentActivity extends FragmentActivity {
 //		});
 		
 		
-		cb_l1.setOnClickListener(new OnClickListener() {
+		/*cb_l1.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -149,7 +250,7 @@ public class RoomFragmentActivity extends FragmentActivity {
 					new OnOffAsync().execute(url);
 				}
 			}
-		});
+		});*/
 		
 	
 	}//End of onCreate()
@@ -212,6 +313,12 @@ public class RoomFragmentActivity extends FragmentActivity {
 		super.onRestoreInstanceState(savedInstanceState);
 	}
 	
+	@Override
+	public Object onRetainCustomNonConfigurationInstance() {
+		// TODO Auto-generated method stub
+		return super.onRetainCustomNonConfigurationInstance();
+	}
+
 	private Context getDialogContext() {
 		Context context;
 		if (getParent() != null)
@@ -268,7 +375,7 @@ public class RoomFragmentActivity extends FragmentActivity {
 			
 			response = HttpCall.getDeviceOnOff(url);
 			
-			System.out.println("RoomFragmentActivity >> "+response[0]+" string >> "+response[1]);
+			System.out.println("378 RoomFragmentActivity >> "+response[0]+" string >> "+response[1]);
 			
 			if(response[1] != null && !(response[1].equalsIgnoreCase("null")) ){
 				
@@ -285,7 +392,7 @@ public class RoomFragmentActivity extends FragmentActivity {
 						 str_device7 = room_json.getString("device7");
 						 str_device8 = room_json.getString("device8");
 						 str_fan = room_json.getString("fan");
-						 str_curtain = room_json.getString("curtain");
+//						 str_curtain = room_json.getString("curtain");
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -376,6 +483,63 @@ public class RoomFragmentActivity extends FragmentActivity {
 						btnReset.setEnabled(true);
 					}
 					
+					if(str_device8.equalsIgnoreCase("0")){
+						cb_l8.setChecked(false);
+					}else{
+						cb_l8.setChecked(true);
+						isReset = true;
+						btnReset.setEnabled(true);
+					}
+					if(str_fan.equalsIgnoreCase("0")){
+						
+						
+						cb_fan.setChecked(false);						
+						//disable all radio button
+						r_slow.setChecked(false);
+						r_medium.setChecked(false);
+						r_fast.setChecked(false);
+						
+					}else if(str_fan.equalsIgnoreCase("1")){						
+						
+						r_slow.setChecked(true);
+						
+						
+						
+						
+						
+					}else if(str_fan.equalsIgnoreCase("2")){
+						
+						r_medium.setChecked(true);
+					}else if (str_fan.equalsIgnoreCase("3")){
+						
+						r_fast.setChecked(true);
+					}
+						//enable all radio button and set radiobutton
+						
+//						cb_fan.setChecked(true);
+//						r_slow.setEnabled(true);
+//						r_medium.setEnabled(true);
+//						r_fast.setEnabled(true);
+//						
+//						if(str_fan.equalsIgnoreCase("1")){
+//							r_slow.setSelected(true);
+//							r_medium.setSelected(false);
+//							r_fast.setSelected(false);
+//						}
+//						
+//						if(str_fan.equalsIgnoreCase("2")){
+//							r_slow.setSelected(false);
+//							r_medium.setSelected(true);
+//							r_fast.setSelected(false);
+//						}
+//						
+//						if(str_fan.equalsIgnoreCase("3")){
+//							r_slow.setSelected(false);
+//							r_medium.setSelected(false);
+//							r_fast.setSelected(true);
+//						}
+						
+					
 					
 				}
 			}else{
@@ -384,8 +548,7 @@ public class RoomFragmentActivity extends FragmentActivity {
 				
 			}
 		}//End of postExecute
-	}//End of async class 
-	
+	}//End of async class	 
 	
 	private class MyHomeOnClickListener implements OnClickListener{
 
@@ -402,11 +565,49 @@ public class RoomFragmentActivity extends FragmentActivity {
 			// TODO Auto-generated method stub
 			
 			String url;
+			
+			if(dev_id.equalsIgnoreCase("fan")){
+				
+				
+				if(vi.isChecked()){
+					System.out.println("Checkbox fan >> "+vi.isChecked());
+//					Toast.makeText(ctx, "text"+isChecked, Toast.LENGTH_LONG).show();
+					url = ctx.getResources().getString(R.string.base_url)+ctx.getResources().getString(R.string.exte_url_fan)+"/1"; 
+					System.out.println("URL of Device "+dev_id+" >> "+url);				
+					
+					r_slow.setEnabled(true);
+					r_medium.setEnabled(true);
+					r_fast.setEnabled(true);
+					
+					r_slow.setSelected(true);
+					
+					new OnOffAsync().execute(url);
+					
+				}else{
+					
+					r_slow.setSelected(false);
+					r_medium.setSelected(false);
+					r_fast.setSelected(false);
+					
+					r_slow.setEnabled(false);
+					r_medium.setEnabled(false);
+					r_fast.setEnabled(false);
+					
+					
+					url = ctx.getResources().getString(R.string.base_url)+ctx.getResources().getString(R.string.exte_url_fan)+"/0";
+					System.out.println("URL of Device "+dev_id+" >> "+url);
+					new OnOffAsync().execute(url);
+				}
+				
+				
+			}else 
+			
 			if(vi.isChecked()){
 				System.out.println("Checkbox 1 >> "+vi.isChecked());
 //				Toast.makeText(ctx, "text"+isChecked, Toast.LENGTH_LONG).show();
 				url = ctx.getResources().getString(R.string.base_url)+ctx.getResources().getString(R.string.exte_url)+dev_id+"/1"; 
-				System.out.println("URL of Device "+dev_id+" >> "+url);
+				System.out.println("URL of Device "+dev_id+" >> "+url);				
+				
 				new OnOffAsync().execute(url);
 				
 			}else{
