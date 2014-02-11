@@ -7,7 +7,7 @@
 
     <string name= "base_url">http://192.168.2.150</string>
     <string name= "exte_url">/arduino/device/</string>
-    
+    <string name= "exte_url_fan">/arduino/fan/</string>
     <string name= "statusnow_url">/arduino/status/now</string>
       
     <string name= "fan_url">/arduino/fan/</string>

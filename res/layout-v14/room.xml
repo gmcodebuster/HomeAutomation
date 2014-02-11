@@ -383,5 +383,40 @@
 	        
     </TableRow>         
       
+      <TableRow 
+        android:layout_height="wrap_content" 
+        android:layout_width="fill_parent" 
+        android:gravity="center_horizontal">  
+
+	       <RadioGroup
+	           android:id="@+id/radiogroup"
+	           android:layout_width="fill_parent"
+	           android:layout_height="wrap_content"
+	           android:orientation="horizontal" >
+
+	           <RadioButton
+	               android:id="@+id/radiobutton_slow"
+	               android:layout_width="wrap_content"
+	               android:layout_height="wrap_content"
+	               android:text="Low" >
+	           </RadioButton>
+
+	           <RadioButton
+	               android:id="@+id/radiobutton_medium"
+	               android:layout_width="wrap_content"
+	               android:layout_height="wrap_content"
+	               android:text="Medium" >
+	           </RadioButton>
+
+	           <RadioButton
+	               android:id="@+id/radiobutton_fast"
+	               android:layout_width="wrap_content"
+	               android:layout_height="wrap_content"
+	               android:text="High" >
+	           </RadioButton>
+	       </RadioGroup>
+	        
+    </TableRow>  
+     
         </TableLayout>
 </merge>
