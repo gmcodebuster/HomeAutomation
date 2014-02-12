@@ -26,6 +26,7 @@ public class RoomFragmentActivity extends FragmentActivity {
 	CompoundButton cb_l1,cb_l2,cb_l3,cb_l4,cb_l5,cb_l6,cb_l7,cb_l8,cb_fan;
 	Button btnReset,btnTurnonall;
 	boolean isReset = true;
+	boolean isOnAll = true;
 	RadioGroup radioGroup;
 	RadioButton r_slow,r_medium,r_fast;
 
@@ -53,6 +54,14 @@ public class RoomFragmentActivity extends FragmentActivity {
 		
 		btnReset = (Button) findViewById(R.id.btn_resetall);
 	    btnTurnonall = (Button) findViewById(R.id.btn_turnon_all);
+	    
+	    if(!(cb_fan.isChecked())){
+	    	
+//	    	r_slow.setEnabled(false);
+//			r_medium.setEnabled(false);
+//			r_fast.setEnabled(false);
+	    	radioGroup.clearCheck();
+	    }
 		
 	    /*int checkedRadioButton = radioGroup.getCheckedRadioButtonId();
 		 
@@ -420,8 +429,28 @@ public class RoomFragmentActivity extends FragmentActivity {
 					
 					System.out.println(" Device 1>> "+str_device1+" Device 2>> "+str_device2+" Device 3>> "+str_device3+" Device 4>> "+str_device4+" Device 5>> "+str_device5+" Device 6>> "+str_device6+" Device 7>> "+str_device7+" Device 8>> "+str_device8+" Device Fan >> "+str_fan+" Device curtain >> "+str_curtain);
 					
+					
+					if(str_device1.equalsIgnoreCase("1") && str_device2.equalsIgnoreCase("1") 
+							&& str_device3.equalsIgnoreCase("1") && str_device4.equalsIgnoreCase("1")
+							&& str_device5.equalsIgnoreCase("1") && str_device6.equalsIgnoreCase("1")
+							&& str_device7.equalsIgnoreCase("1") && str_device8.equalsIgnoreCase("1")
+							&& !(str_fan.equalsIgnoreCase("0"))){
+						
+						isOnAll = false;
+					}else{
+						isOnAll = true;
+					}
+					
+					if(isOnAll){
+						btnTurnonall.setEnabled(true);
+					}else{
+						btnTurnonall.setEnabled(false);
+					}
+					
+					
 					if(str_device1.equalsIgnoreCase("0")){
 						cb_l1.setChecked(false);
+						
 					}else{
 						cb_l1.setChecked(true);
 						isReset = true;
@@ -492,27 +521,64 @@ public class RoomFragmentActivity extends FragmentActivity {
 					}
 					if(str_fan.equalsIgnoreCase("0")){
 						
-						
+						Toast.makeText(ctx, "fan is 0 >> "+str_fan, 2000).show();
 						cb_fan.setChecked(false);						
 						//disable all radio button
-						r_slow.setChecked(false);
-						r_medium.setChecked(false);
-						r_fast.setChecked(false);
+//						r_slow.setChecked(false);
+//						r_medium.setChecked(false);
+//						r_fast.setChecked(false);
+						radioGroup.clearCheck();
 						
-					}else if(str_fan.equalsIgnoreCase("1")){						
+						r_slow.setEnabled(false);
+						r_medium.setEnabled(false);
+						r_fast.setEnabled(false);
+						
+						
+						
+						
+					} if(str_fan.equalsIgnoreCase("1")){
+						
+						Toast.makeText(ctx, "fan is 1 >> "+str_fan, 2000).show();
+						
+						r_slow.setEnabled(true);
+						r_medium.setEnabled(true);
+						r_fast.setEnabled(true);
+						
 						
 						r_slow.setChecked(true);
+						Toast.makeText(ctx, "fan is 1 set on>> ", 2000).show();
+						cb_fan.setChecked(true);
 						
 						
 						
 						
+						isReset = true;
 						
-					}else if(str_fan.equalsIgnoreCase("2")){
 						
+						
+					} if(str_fan.equalsIgnoreCase("2")){
+						
+						Toast.makeText(ctx, "fan is 2 >> "+str_fan, 2000).show();
+						
+						r_slow.setEnabled(true);
+						r_medium.setEnabled(true);
+						r_fast.setEnabled(true);
+						
+						cb_fan.setChecked(true);	
 						r_medium.setChecked(true);
-					}else if (str_fan.equalsIgnoreCase("3")){
 						
+						isReset = true;
+					} if (str_fan.equalsIgnoreCase("3")){
+						
+						Toast.makeText(ctx, "fan is 3 >> "+str_fan, 2000).show();
+						r_slow.setEnabled(true);
+						r_medium.setEnabled(true);
+						r_fast.setEnabled(true);
+						
+						cb_fan.setChecked(true);	
 						r_fast.setChecked(true);
+						
+						isReset = true;
 					}
 						//enable all radio button and set radiobutton
 						
@@ -570,28 +636,31 @@ public class RoomFragmentActivity extends FragmentActivity {
 				
 				
 				if(vi.isChecked()){
+					
+					Toast.makeText(ctx, "is Checked >> "+vi.isChecked(), 2000).show();
 					System.out.println("Checkbox fan >> "+vi.isChecked());
 //					Toast.makeText(ctx, "text"+isChecked, Toast.LENGTH_LONG).show();
 					url = ctx.getResources().getString(R.string.base_url)+ctx.getResources().getString(R.string.exte_url_fan)+"/1"; 
 					System.out.println("URL of Device "+dev_id+" >> "+url);				
 					
-					r_slow.setEnabled(true);
-					r_medium.setEnabled(true);
-					r_fast.setEnabled(true);
+//					r_slow.setEnabled(true);
+//					r_medium.setEnabled(true);
+//					r_fast.setEnabled(true);
 					
-					r_slow.setSelected(true);
+//					r_slow.setChecked(true);
 					
 					new OnOffAsync().execute(url);
 					
 				}else{
-					
-					r_slow.setSelected(false);
-					r_medium.setSelected(false);
-					r_fast.setSelected(false);
-					
-					r_slow.setEnabled(false);
-					r_medium.setEnabled(false);
-					r_fast.setEnabled(false);
+					Toast.makeText(ctx, "is not >> "+vi.isChecked(), 2000).show();
+//					r_slow.setChecked(false);
+//					r_medium.setChecked(false);
+//					r_fast.setChecked(false);
+//					
+//					r_slow.setEnabled(false);
+//					r_medium.setEnabled(false);
+//					r_fast.setEnabled(false);
+//					radioGroup.clearCheck();
 					
 					
 					url = ctx.getResources().getString(R.string.base_url)+ctx.getResources().getString(R.string.exte_url_fan)+"/0";
